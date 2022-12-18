@@ -17,6 +17,8 @@
 		833C4715294EAD4200A14145 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833C4714294EAD4200A14145 /* Movie.swift */; };
 		833C4717294EB12400A14145 /* AlbumListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833C4716294EB12400A14145 /* AlbumListView.swift */; };
 		83702844294FB15E0027D21D /* AlbumSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83702843294FB15E0027D21D /* AlbumSearchView.swift */; };
+		83702846294FCC010027D21D /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83702845294FCC010027D21D /* APIError.swift */; };
+		83702848294FD4E50027D21D /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83702847294FD4E50027D21D /* APIService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		833C4714294EAD4200A14145 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		833C4716294EB12400A14145 /* AlbumListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListView.swift; sourceTree = "<group>"; };
 		83702843294FB15E0027D21D /* AlbumSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSearchView.swift; sourceTree = "<group>"; };
+		83702845294FCC010027D21D /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		83702847294FD4E50027D21D /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				833C4710294EA82700A14145 /* AlbumListViewModel.swift */,
+				83702847294FD4E50027D21D /* APIService.swift */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -105,6 +110,7 @@
 				833C470E294EA62400A14145 /* Album.swift */,
 				833C4712294EAD3500A14145 /* Song.swift */,
 				833C4714294EAD4200A14145 /* Movie.swift */,
+				83702845294FCC010027D21D /* APIError.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -185,8 +191,10 @@
 				833C4715294EAD4200A14145 /* Movie.swift in Sources */,
 				833C46FE294EA39800A14145 /* ETunesApp.swift in Sources */,
 				833C470F294EA62400A14145 /* Album.swift in Sources */,
+				83702848294FD4E50027D21D /* APIService.swift in Sources */,
 				833C4713294EAD3500A14145 /* Song.swift in Sources */,
 				833C4717294EB12400A14145 /* AlbumListView.swift in Sources */,
+				83702846294FCC010027D21D /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

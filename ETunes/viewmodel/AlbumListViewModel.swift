@@ -16,12 +16,6 @@ class AlbumListViewModel: ObservableObject {
         case error(String)
     }
     
-    enum EntityType: String {
-        case album
-        case song
-        case movie
-    }
-    
     @Published var searchTerm: String = ""
     @Published var albums: [Album] = [Album]()
     
@@ -33,6 +27,8 @@ class AlbumListViewModel: ObservableObject {
     
     let limit = 20
     var page: Int = 0
+    
+    let apiService = APIService()
     
     var subscriptions = Set<AnyCancellable>()
     
@@ -61,58 +57,23 @@ class AlbumListViewModel: ObservableObject {
             return
         }
         
-        guard let url = createURL(for: searchTerm) else {
-            return
-        }
-        print(url.absoluteString)
-        print("start fetching data for \(searchTerm)")
-        
         state = .isLoading
-        URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-            
-            if let error = error {
-                print("urlsession error: \(error.localizedDescription)")
-                DispatchQueue.main.async {
-                    self?.state = .error("Could not load: \(error.localizedDescription)")
-                }
-            } else if let data = data {
-                
-                do {
-                    let result = try JSONDecoder().decode(AlbumResult.self, from: data)
-                    DispatchQueue.main.async {
-                        for album in result.results{
+        
+        apiService.fetchAlbums(for: searchTerm, page: page, limit: limit){ [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                    case .success(let results):
+                        for album in results.results {
                             self?.albums.append(album)
                         }
                         self?.page += 1
-                        self?.state = (result.results.count == self?.limit) ? .good : .loadedAll
-                    }
-                } catch {
-                    print("decoding error \(error)")
-                    DispatchQueue.main.async {
-                        self?.state = .error("Could not get data: \(error.localizedDescription)")
-                    }
+                        self?.state = (results.results.count == self?.limit) ? .good : .loadedAll
+                        print("fetched \(results.resultCount)")
+                    
+                    case .failure(let error):
+                        self?.state = .error("Could not load: \(error.localizedDescription)")
                 }
-                 
             }
-            
-        }.resume()
-    }
-    
-    func createURL(for searchTerm: String, entityType: EntityType = .album) -> URL?{
-        let baseURL = "https://itunes.apple.com/search?"
-        
-        let offset = page * limit
-        
-        let queryItems = [
-            URLQueryItem(name: "term", value: searchTerm),
-            URLQueryItem(name: "entity", value: entityType.rawValue),
-            URLQueryItem(name: "limit", value: String(limit)),
-            URLQueryItem(name: "offset", value: String(offset))
-            
-        ]
-        var components = URLComponents(string: baseURL)
-        components?.queryItems = queryItems
-        return components?.url
-    
+        }
     }
 }
