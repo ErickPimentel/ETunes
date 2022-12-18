@@ -9,44 +9,40 @@ import SwiftUI
 
 struct AlbumListView: View {
     
-    @StateObject var albumListViewModel = AlbumListViewModel()
+    @ObservedObject var albumListViewModel: AlbumListViewModel
     
     var body: some View {
-        NavigationView{
-            List{
-                ForEach(albumListViewModel.albums){ album in
-                    Text(album.collectionName)
-                }
-                
-                switch albumListViewModel.state {
-                case .good:
-                    Color.clear
-                        .onAppear{
-                            albumListViewModel.loadMore()
-                        }
-                    
-                case .isLoading:
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                        .frame(maxWidth: .infinity)
-                case .loadedAll:
-                    //EmptyView()
-                    Color.gray
-                    
-                case .error(let message):
-                    Text(message)
-                        .foregroundColor(.pink)
-                }
+        List{
+            ForEach(albumListViewModel.albums){ album in
+                Text(album.collectionName)
             }
-            .listStyle(.plain)
-            .searchable(text: $albumListViewModel.searchTerm)
-            .navigationTitle("Search Albums")
+            
+            switch albumListViewModel.state {
+            case .good:
+                Color.clear
+                    .onAppear{
+                        albumListViewModel.loadMore()
+                    }
+                
+            case .isLoading:
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .frame(maxWidth: .infinity)
+            case .loadedAll:
+                //EmptyView()
+                Color.gray
+                
+            case .error(let message):
+                Text(message)
+                    .foregroundColor(.pink)
+            }
         }
+        .listStyle(.plain)
     }
 }
 
 struct AlbumListView_Previews: PreviewProvider {
     static var previews: some View {
-        AlbumListView()
+        AlbumListView(albumListViewModel: AlbumListViewModel())
     }
 }
