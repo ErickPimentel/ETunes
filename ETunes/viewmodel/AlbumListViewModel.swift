@@ -9,10 +9,21 @@ import Foundation
 
 class AlbumListViewModel: ObservableObject {
     
+    enum State: Comparable {
+        case good
+        case isLoading
+        case loadedAll
+        case error(String)
+    }
+    
     @Published var searchTerm: String = ""
     @Published var albums: [Album] = [Album]()
     
-    @Published var isLoading: Bool = false
+    @Published var state: State = .good {
+        didSet {
+            print("state changed to: \(state)")
+        }
+    }
     
     let limit = 20
     var page: Int = 0
@@ -24,6 +35,7 @@ class AlbumListViewModel: ObservableObject {
             .dropFirst()
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .sink { [weak self] term in
+                self?.state = .good
                 self?.albums = []
                 self?.fetchAlbums(for: term)
         }.store(in: &subscriptions)
@@ -39,7 +51,7 @@ class AlbumListViewModel: ObservableObject {
             return
         }
         
-        guard !isLoading else {
+        guard state == State.good else {
             return
         }
         
@@ -50,11 +62,14 @@ class AlbumListViewModel: ObservableObject {
         
         print("start fetching data for \(searchTerm)")
         
-        isLoading = true
+        state = .isLoading
         URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             
             if let error = error {
                 print("urlsession error: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    self?.state = .error("Could not load: \(error.localizedDescription)")
+                }
             } else if let data = data {
                 
                 do {
@@ -64,15 +79,15 @@ class AlbumListViewModel: ObservableObject {
                             self?.albums.append(album)
                         }
                         self?.page += 1
+                        self?.state = (result.results.count == self?.limit) ? .good : .loadedAll
                     }
                 } catch {
                     print("decoding error \(error)")
+                    DispatchQueue.main.async {
+                        self?.state = .error("Could not get data: \(error.localizedDescription)")
+                    }
                 }
                  
-            }
-            
-            DispatchQueue.main.async {
-                self?.isLoading = false
             }
             
         }.resume()

@@ -18,16 +18,25 @@ struct AlbumListView: View {
                     Text(album.collectionName)
                 }
                 
-                if albumListViewModel.isLoading {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                } else {
-                    Color.red
-                        .onAppear {
+                switch albumListViewModel.state {
+                case .good:
+                    Color.clear
+                        .onAppear{
                             albumListViewModel.loadMore()
                         }
+                    
+                case .isLoading:
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                        .frame(maxWidth: .infinity)
+                case .loadedAll:
+                    //EmptyView()
+                    Color.gray
+                    
+                case .error(let message):
+                    Text(message)
+                        .foregroundColor(.pink)
                 }
-                
             }
             .listStyle(.plain)
             .searchable(text: $albumListViewModel.searchTerm)
