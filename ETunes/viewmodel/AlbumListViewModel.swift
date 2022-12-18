@@ -4,17 +4,30 @@
 //
 //  Created by Erick Spinelli Pimentel on 12/17/22.
 //
-
+import Combine
 import Foundation
 
 class AlbumListViewModel: ObservableObject {
     
-    @Published var searchTerm: String = "Jack Johnson"
+    @Published var searchTerm: String = ""
     @Published var albums: [Album] = [Album]()
+    
+    let limit = 20
+    
+    var subscriptions = Set<AnyCancellable>()
+    
+    init(){
+        $searchTerm
+            .dropFirst()
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .sink { [weak self] term in
+            self?.fetchAlbums(for: term)
+        }.store(in: &subscriptions)
+    }
     
     func fetchAlbums(for searchTerm: String){
         
-        guard let url = URL(string: "https://itunes.apple.com/search?term=jack+johnson&entity=album&limit=5") else {
+        guard let url = URL(string: "https://itunes.apple.com/search?term=\(searchTerm)&entity=album&limit=\(limit)") else {
             return
         }
         
@@ -26,7 +39,9 @@ class AlbumListViewModel: ObservableObject {
                 
                 do {
                     let result = try JSONDecoder().decode(AlbumResult.self, from: data)
-                    self.albums = result.results
+                    DispatchQueue.main.async {
+                        self.albums = result.results
+                    }
                 } catch {
                     print("decoding error \(error)")
                 }

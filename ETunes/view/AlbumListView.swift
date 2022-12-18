@@ -12,11 +12,13 @@ struct AlbumListView: View {
     @StateObject var albumListViewModel = AlbumListViewModel()
     
     var body: some View {
-        List(albumListViewModel.albums){ album in
-            Text(album.collectionName)
-        }
-        .onAppear{
-            albumListViewModel.fetchAlbums(for: albumListViewModel.searchTerm)
+        NavigationView{
+            List(albumListViewModel.albums){ album in
+                Text(album.collectionName)
+            }
+            .listStyle(.plain)
+            .searchable(text: $albumListViewModel.searchTerm)
+            .navigationTitle("Search Albums")
         }
     }
 }
