@@ -20,7 +20,7 @@ class APIService {
         fetch(type: AlbumResult.self, url: url, completion: completion)
     }
     
-    func fetchSong(for searchTerm: String, page: Int, limit: Int, completion: @escaping (Result<SongResult, APIError>) -> Void){
+    func fetchSongs(for searchTerm: String, page: Int, limit: Int, completion: @escaping (Result<SongResult, APIError>) -> Void){
         let url = createURL(for: searchTerm, entityType: .song, page: page, limit: limit)
         fetch(type: SongResult.self, url: url, completion: completion)
     }
@@ -30,7 +30,7 @@ class APIService {
         fetch(type: MovieResult.self, url: url, completion: completion)
     }
     
-    func fetch<T: Decodable>(type: T.Type, url: URL?, completion: @escaping (Result<T, APIError>) -> Void){
+    private func fetch<T: Decodable>(type: T.Type, url: URL?, completion: @escaping (Result<T, APIError>) -> Void){
         
         guard let url = url else {
             let error = APIError.badURL
