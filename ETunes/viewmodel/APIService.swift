@@ -16,9 +16,18 @@ enum EntityType: String {
 class APIService {
     
     func fetchAlbums(for searchTerm: String, page: Int, limit: Int, completion: @escaping (Result<AlbumResult, APIError>) -> Void){
-        
-        let url = createURL(for: searchTerm, page: page, limit: limit)
+        let url = createURL(for: searchTerm, entityType: .album, page: page, limit: limit)
         fetch(type: AlbumResult.self, url: url, completion: completion)
+    }
+    
+    func fetchSong(for searchTerm: String, page: Int, limit: Int, completion: @escaping (Result<SongResult, APIError>) -> Void){
+        let url = createURL(for: searchTerm, entityType: .song, page: page, limit: limit)
+        fetch(type: SongResult.self, url: url, completion: completion)
+    }
+    
+    func fetchMovies(for searchTerm: String, page: Int, limit: Int, completion: @escaping (Result<MovieResult, APIError>) -> Void){
+        let url = createURL(for: searchTerm, entityType: .movie, page: page, limit: limit)
+        fetch(type: MovieResult.self, url: url, completion: completion)
     }
     
     func fetch<T: Decodable>(type: T.Type, url: URL?, completion: @escaping (Result<T, APIError>) -> Void){
@@ -51,7 +60,7 @@ class APIService {
         }.resume()
     }
     
-    func createURL(for searchTerm: String, entityType: EntityType = .album, page: Int, limit: Int) -> URL?{
+    func createURL(for searchTerm: String, entityType: EntityType, page: Int, limit: Int) -> URL?{
         let baseURL = "https://itunes.apple.com/search?"
         
         let offset = page * limit
