@@ -4,9 +4,8 @@
 //
 //  Created by Erick Spinelli Pimentel on 12/18/22.
 //
-
+import Combine
 import Foundation
-
 
 class MovieListViewModel: ObservableObject {
     
@@ -16,8 +15,22 @@ class MovieListViewModel: ObservableObject {
     
     private let apiService = APIService()
     
-    let limit = 20
-    var page: Int = 0
+    var subscriptions = Set<AnyCancellable>()
+    
+    init(){
+        $searchTerm
+            .dropFirst()
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .sink { [weak self] term in
+                self?.state = .good
+                self?.movies = []
+                self?.fetchMovies(for: term)
+        }.store(in: &subscriptions)
+    }
+    
+    func loadMore(){
+        fetchMovies(for: searchTerm )
+    }
     
     func fetchMovies(for searchTerm: String){
         
@@ -31,18 +44,16 @@ class MovieListViewModel: ObservableObject {
         
         state = .isLoading
         
-        apiService.fetchMovies(for: searchTerm, page: page, limit: limit){ [weak self] result in
+        apiService.fetchMovies(for: searchTerm){ [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                     case .success(let results):
-                        for movie in results.results {
-                            self?.movies.append(movie)
-                        }
-                        self?.page += 1
-                        self?.state = (results.results.count == self?.limit) ? .good : .loadedAll
-                        print("fetched \(results.resultCount)")
+                        self?.movies = results.results
+                        self?.state = .good
+                            print("fetched \(results.resultCount)")
                     
                     case .failure(let error):
+                        print("error loading movies: \(error)")
                         self?.state = .error("Could not load: \(error.localizedDescription)")
                 }
             }

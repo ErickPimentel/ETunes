@@ -25,8 +25,8 @@ class APIService {
         fetch(type: SongResult.self, url: url, completion: completion)
     }
     
-    func fetchMovies(for searchTerm: String, page: Int, limit: Int, completion: @escaping (Result<MovieResult, APIError>) -> Void){
-        let url = createURL(for: searchTerm, entityType: .movie, page: page, limit: limit)
+    func fetchMovies(for searchTerm: String, completion: @escaping (Result<MovieResult, APIError>) -> Void){
+        let url = createURL(for: searchTerm, entityType: .movie, page: nil, limit: nil)
         fetch(type: MovieResult.self, url: url, completion: completion)
     }
     
@@ -60,18 +60,19 @@ class APIService {
         }.resume()
     }
     
-    func createURL(for searchTerm: String, entityType: EntityType, page: Int, limit: Int) -> URL?{
+    func createURL(for searchTerm: String, entityType: EntityType, page: Int?, limit: Int?) -> URL?{
         let baseURL = "https://itunes.apple.com/search?"
         
-        let offset = page * limit
-        
-        let queryItems = [
+        var queryItems = [
             URLQueryItem(name: "term", value: searchTerm),
-            URLQueryItem(name: "entity", value: entityType.rawValue),
-            URLQueryItem(name: "limit", value: String(limit)),
-            URLQueryItem(name: "offset", value: String(offset))
-            
+            URLQueryItem(name: "entity", value: entityType.rawValue)
         ]
+        
+        if let page = page, let limit = limit {
+            let offset = page * limit
+            queryItems.append(URLQueryItem(name: "limit", value: String(limit)))
+            queryItems.append(URLQueryItem(name: "offset", value: String(offset)))
+        }
         var components = URLComponents(string: baseURL)
         components?.queryItems = queryItems
         return components?.url
