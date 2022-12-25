@@ -13,7 +13,7 @@ struct MovieListView: View {
     var body: some View {
         List{
             ForEach(movieListViewModel.movies){ movie in
-                Text(movie.trackName)
+                MovieRowView(movie: movie)
             }
             
             switch movieListViewModel.state {

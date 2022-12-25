@@ -34,6 +34,7 @@
 		83B57D682958FE4D00EB6421 /* AlbumRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B57D672958FE4D00EB6421 /* AlbumRowView.swift */; };
 		83B57D6A2958FF0F00EB6421 /* ImageLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B57D692958FF0F00EB6421 /* ImageLoadingView.swift */; };
 		83B57D6D2959017800EB6421 /* BuyButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B57D6C2959017800EB6421 /* BuyButtonView.swift */; };
+		83B57D6F2959041C00EB6421 /* MovieRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B57D6E2959041C00EB6421 /* MovieRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		83B57D672958FE4D00EB6421 /* AlbumRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumRowView.swift; sourceTree = "<group>"; };
 		83B57D692958FF0F00EB6421 /* ImageLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadingView.swift; sourceTree = "<group>"; };
 		83B57D6C2959017800EB6421 /* BuyButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyButtonView.swift; sourceTree = "<group>"; };
+		83B57D6E2959041C00EB6421 /* MovieRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,11 +122,11 @@
 		833C470B294EA4FC00A14145 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				83B57D6B2959012700EB6421 /* helper */,
 				837B2FFA2958C69E0077925A /* search */,
+				83702852294FDC770027D21D /* album */,
 				83702854294FDC900027D21D /* song */,
 				83702853294FDC850027D21D /* movie */,
-				83702852294FDC770027D21D /* album */,
+				83B57D6B2959012700EB6421 /* helper */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -176,6 +178,7 @@
 			children = (
 				83702855294FDCCB0027D21D /* MovieSearchView.swift */,
 				83702857294FDD600027D21D /* MovieListView.swift */,
+				83B57D6E2959041C00EB6421 /* MovieRowView.swift */,
 			);
 			path = movie;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			files = (
 				83B57D662958FC2600EB6421 /* BuyButtonStyle.swift in Sources */,
 				83B57D562958CFD000EB6421 /* SearchAllListView.swift in Sources */,
+				83B57D6F2959041C00EB6421 /* MovieRowView.swift in Sources */,
 				833C4711294EA82800A14145 /* AlbumListViewModel.swift in Sources */,
 				83B57D682958FE4D00EB6421 /* AlbumRowView.swift in Sources */,
 				83702856294FDCCB0027D21D /* MovieSearchView.swift in Sources */,

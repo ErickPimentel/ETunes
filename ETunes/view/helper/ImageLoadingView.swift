@@ -13,11 +13,20 @@ struct ImageLoadingView: View {
     let size: CGFloat
     
     var body: some View {
-        AsyncImage(url: URL(string: urlString)){ image in
-            image.resizable()
-                .border(Color(white: 0.8))
-        } placeholder: {
-            ProgressView()
+        
+        AsyncImage(url: URL(string: urlString)){ phase in
+            switch phase {
+            case .empty:
+                ProgressView()
+            case .failure(_):
+                Color.gray
+            case .success(let image):
+                image
+                    .resizable()
+                    .border(Color(white: 0.8))
+            @unknown default:
+                EmptyView()
+            }
         }
         .frame(width: size, height: size)
     }
