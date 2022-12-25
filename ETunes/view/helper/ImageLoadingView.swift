@@ -18,18 +18,18 @@ struct ImageLoadingView: View {
             switch phase {
             case .empty:
                 ProgressView()
+                    .frame(width: size)
             case .failure(_):
                 Color.gray
+                    .frame(width: size)
             case .success(let image):
                 image
-                    .resizable()
                     .border(Color(white: 0.8))
-                    .scaledToFit()
             @unknown default:
                 EmptyView()
             }
         }
-        .frame(width: size, height: size)
+        .frame(height: size)
     }
 }
 
