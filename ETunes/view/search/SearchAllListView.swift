@@ -17,6 +17,24 @@ struct SearchAllListView: View {
         ScrollView{
             LazyVStack{
                 
+                HStack{
+                    Text("Songs")
+                        .font(.title2)
+                    Spacer()
+                    NavigationLink {
+                        SongListView(songListViewModel: songListViewModel)
+                    } label: {
+                        HStack {
+                            Text("See all")
+                            Image(systemName: "chevron.right")
+                        }
+                    }
+                }
+                .padding(.horizontal)
+                SongSectionView(songs: songListViewModel.songs)
+                
+                Divider()
+                    .padding(.bottom)
                 
                 HStack{
                     Text("Albums")
@@ -31,28 +49,11 @@ struct SearchAllListView: View {
                         }
                     }
                 }
-                .padding()
+                .padding(.horizontal)
                 AlbumSectionView(albums: albumListViewModel.albums)
                 
                 Divider()
-                
-                HStack{
-                    Text("Songs")
-                        .font(.title2)
-                    Spacer()
-                    NavigationLink {
-                        SongListView(songListViewModel: songListViewModel)
-                    } label: {
-                        HStack {
-                            Text("See all")
-                            Image(systemName: "chevron.right")
-                        }
-                    }
-                }
-                .padding()
-                SongSectionView(songs: songListViewModel.songs)
-                
-                Divider()
+                    .padding(.bottom)
                 
                 HStack{
                     Text("Movies")
@@ -67,7 +68,7 @@ struct SearchAllListView: View {
                         }
                     }
                 }
-                .padding()
+                .padding(.horizontal)
                 MovieSectionView(movies: movieListViewModel.movies)
                 
             }

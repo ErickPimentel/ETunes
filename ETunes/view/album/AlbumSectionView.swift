@@ -12,7 +12,22 @@ struct AlbumSectionView: View {
     let albums: [Album]
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView(.horizontal) {
+            LazyHStack {
+                ForEach(albums) { album in
+                    VStack(alignment: .leading) {
+                        ImageLoadingView(urlString: album.artworkUrl100, size: 100)
+                        Text(album.collectionName)
+                        Text(album.artistName)
+                            .foregroundColor(Color.gray)
+                    }
+                    .lineLimit(2)
+                    .frame(width: 100)
+                    .font(.caption)
+                }
+            }
+            .padding([.horizontal, .bottom])
+        }
     }
 }
 
