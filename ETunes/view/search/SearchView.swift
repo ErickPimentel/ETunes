@@ -35,36 +35,36 @@ struct SearchView: View {
                 if searchTerm.count == 0 {
                     SearchPlaceholderView(searchTerm: $searchTerm)
                         .frame(maxHeight: .infinity)
+                } else{
+                    switch selectedEntityType {
+                         case .all:
+                             SearchAllListView(
+                                albumListViewModel:albumListViewModel,
+                                songListViewModel: songListViewModel,
+                                movieListViewModel: movieListViewModel)
+                             .onAppear{
+                                 albumListViewModel.searchTerm = searchTerm
+                                 songListViewModel.searchTerm = searchTerm
+                                 movieListViewModel.searchTerm = searchTerm
+                             }
+                             
+                         case .album:
+                             AlbumListView(albumListViewModel: albumListViewModel)
+                                .onAppear{
+                                    albumListViewModel.searchTerm = searchTerm
+                                }
+                         case .song:
+                             SongListView(songListViewModel: songListViewModel)
+                                .onAppear{
+                                    songListViewModel.searchTerm = searchTerm
+                                }
+                         case .movie:
+                             MovieListView(movieListViewModel: movieListViewModel)
+                                .onAppear{
+                                    movieListViewModel.searchTerm = searchTerm
+                                }
+                     }
                 }
-                
-                switch selectedEntityType {
-                     case .all:
-                         SearchAllListView(
-                            albumListViewModel:albumListViewModel,
-                            songListViewModel: songListViewModel,
-                            movieListViewModel: movieListViewModel)
-                         .onAppear{
-                             albumListViewModel.searchTerm = searchTerm
-                             songListViewModel.searchTerm = searchTerm
-                             movieListViewModel.searchTerm = searchTerm
-                         }
-                         
-                     case .album:
-                         AlbumListView(albumListViewModel: albumListViewModel)
-                            .onAppear{
-                                albumListViewModel.searchTerm = searchTerm
-                            }
-                     case .song:
-                         SongListView(songListViewModel: songListViewModel)
-                            .onAppear{
-                                songListViewModel.searchTerm = searchTerm
-                            }
-                     case .movie:
-                         MovieListView(movieListViewModel: movieListViewModel)
-                            .onAppear{
-                                movieListViewModel.searchTerm = searchTerm
-                            }
-                 }
 
             }
             .searchable(text: $searchTerm)

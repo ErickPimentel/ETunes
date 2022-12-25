@@ -23,10 +23,15 @@ class MovieListViewModel: ObservableObject {
             .dropFirst()
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
             .sink { [weak self] term in
-                self?.state = .good
-                self?.movies = []
+                self?.clear()
                 self?.fetchMovies(for: term)
         }.store(in: &subscriptions)
+    }
+    
+    func clear(){
+        state = .good
+        movies = []
+        //page = 0
     }
     
     func loadMore(){
@@ -59,5 +64,11 @@ class MovieListViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    static func example() -> MovieListViewModel{
+        let vm = MovieListViewModel()
+        vm.movies = [Movie.example()]
+        return vm
     }
 }
