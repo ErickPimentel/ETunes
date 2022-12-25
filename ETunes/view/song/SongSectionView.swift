@@ -11,8 +11,19 @@ struct SongSectionView: View {
     
     let songs: [Song]
     
+    let rows = Array(repeating: GridItem(.fixed(60), spacing: 0, alignment: .leading), count: 4)
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView(.horizontal) {
+            LazyHGrid(rows: rows, spacing: 15){
+                ForEach(songs) { song in
+                    
+                    SongRowView(song: song)
+                        .frame(width: 300)
+                }
+            }
+            .padding([.horizontal, .bottom])
+        }
     }
 }
 
