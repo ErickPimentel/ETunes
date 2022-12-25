@@ -15,35 +15,13 @@ struct AlbumSearchView: View {
             
             Group {
                 if albumListViewModel.searchTerm.isEmpty {
-                    AlbumPlaceholderView(searchTerm: $albumListViewModel.searchTerm)
+                    SearchPlaceholderView(searchTerm: $albumListViewModel.searchTerm)
                 } else {
                     AlbumListView(albumListViewModel: albumListViewModel)
                 }
             }
             .searchable(text: $albumListViewModel.searchTerm)
             .navigationTitle("Search Albums")
-        }
-    }
-}
-
-struct AlbumPlaceholderView: View {
-    
-    @Binding var searchTerm: String
-    let suggestions = ["Midnights", "Dangerous", "Highlights"]
-    
-    var body: some View {
-        VStack(spacing: 20) {
-            Text("Trending")
-                .font(.title)
-            ForEach(suggestions, id: \.self){ text in
-                Button {
-                    searchTerm = text
-                } label: {
-                    Text(text)
-                        .font(.title3)
-                }
-                
-            }
         }
     }
 }

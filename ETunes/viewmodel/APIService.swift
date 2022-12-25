@@ -7,12 +7,6 @@
 
 import Foundation
 
-enum EntityType: String {
-    case album
-    case song
-    case movie
-}
-
 class APIService {
     
     func fetchAlbums(for searchTerm: String, page: Int, limit: Int, completion: @escaping (Result<AlbumResult, APIError>) -> Void){
