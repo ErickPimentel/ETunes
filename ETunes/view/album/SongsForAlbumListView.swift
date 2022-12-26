@@ -13,18 +13,37 @@ struct SongsForAlbumListView: View {
     
     
     var body: some View {
-        VStack {
-            ForEach(songsForAlbumListViewModel.songs){ song in
-                HStack{
-                    Text("\(song.trackNumber)")
-                    Text(song.trackName)
-                    Text(formattedDuration(time: song.trackTimeMillis))
-                    
-                    BuySongButtonView(
-                        urlString: song.previewURL,
-                        price: song.trackPrice,
-                        currency: song.currency)
-                }
+        ScrollView {
+            
+            if songsForAlbumListViewModel.state == .isLoading{
+                ProgressView()
+                    .progressViewStyle(.circular)
+            } else {
+                Grid(horizontalSpacing: 20) {
+                        ForEach(songsForAlbumListViewModel.songs){ song in
+                            GridRow{
+                                Text("\(song.trackNumber)")
+                                    .font(.footnote)
+                                    .gridColumnAlignment(.trailing)
+                                
+                                Text(song.trackName)
+                                    .gridColumnAlignment(.leading)
+                                
+                                Spacer()
+                                
+                                Text(formattedDuration(time: song.trackTimeMillis))
+                                    .font(.footnote)
+                                
+                                BuySongButtonView(
+                                    urlString: song.previewURL,
+                                    price: song.trackPrice,
+                                    currency: song.currency)
+                            }
+                            Divider()
+                            
+                        }
+                    }
+                    .padding([.vertical, .leading])
             }
         }
     }

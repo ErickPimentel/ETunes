@@ -14,6 +14,7 @@ struct AlbumDetailView: View {
     @StateObject var songsForAlbumListViewModel: SongsForAlbumListViewModel
     
     init(album: Album){
+        print("init album detail \(album.id)")
         self.album = album
         self._songsForAlbumListViewModel = StateObject(wrappedValue: SongsForAlbumListViewModel(albumID: album.id))
     }
@@ -50,8 +51,9 @@ struct AlbumDetailView: View {
             .padding()
             
             SongsForAlbumListView(songsForAlbumListViewModel: songsForAlbumListViewModel)
-            
-            
+        }
+        .onAppear {
+            songsForAlbumListViewModel.fetch()
         }
     }
     

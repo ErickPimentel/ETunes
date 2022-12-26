@@ -18,12 +18,14 @@ class SongsForAlbumListViewModel: ObservableObject {
     
     init(albumID: Int){
         self.albumID = albumID
-        
-        fetchSongs(for: albumID)
         print("init for songs for album \(albumID)")
     }
     
-    func fetchSongs(for albumID: Int){
+    func fetch(){
+        fetchSongs(for: albumID)
+    }
+    
+    private func fetchSongs(for albumID: Int){
         apiService.fetchSongs(for: albumID){ [weak self] result in
                 DispatchQueue.main.async {
                     switch result {
@@ -47,7 +49,7 @@ class SongsForAlbumListViewModel: ObservableObject {
     
     static func example() -> SongsForAlbumListViewModel {
         let vm = SongsForAlbumListViewModel(albumID: 1)
-        vm.songs = [Song.example()]
+        vm.songs = [Song.example(), Song.example2()]
         return vm
     }
 }
