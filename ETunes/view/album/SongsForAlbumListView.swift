@@ -19,6 +19,11 @@ struct SongsForAlbumListView: View {
                     Text("\(song.trackNumber)")
                     Text(song.trackName)
                     Text(formattedDuration(time: song.trackTimeMillis))
+                    
+                    BuySongButtonView(
+                        urlString: song.previewURL,
+                        price: song.trackPrice,
+                        currency: song.currency)
                 }
             }
         }
@@ -30,6 +35,9 @@ struct SongsForAlbumListView: View {
         
         let interval = TimeInterval(timeInSeconds)
         let formatter = DateComponentsFormatter()
+        formatter.zeroFormattingBehavior = .pad
+        formatter.allowedUnits = [.minute, .second]
+        formatter.unitsStyle = .positional
         
         return formatter.string(from: interval) ?? ""
     }
