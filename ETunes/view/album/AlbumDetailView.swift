@@ -11,33 +11,47 @@ struct AlbumDetailView: View {
     
     let album: Album
     
+    @StateObject var songsForAlbumListViewModel: SongsForAlbumListViewModel
+    
+    init(album: Album){
+        self.album = album
+        self._songsForAlbumListViewModel = StateObject(wrappedValue: SongsForAlbumListViewModel(albumID: album.id))
+    }
+    
     var body: some View {
-        HStack(alignment: .bottom) {
-            
-            ImageLoadingView(urlString: album.artworkUrl100, size: 100)
-            
-            VStack(alignment: .leading){
-                Text(album.collectionName)
-                    .font(.footnote)
-                    .foregroundColor(Color(.label))
-                Text(album.artistName)
-                    .padding(.bottom, 5)
-                    
+        VStack {
+            HStack(alignment: .bottom) {
                 
-                Text(album.primaryGenreName)
-                Text("\(album.trackCount) songs")
-                Text("Released: \(formattedDate(value: album.releaseDate))")
+                ImageLoadingView(urlString: album.artworkUrl100, size: 100)
+                
+                VStack(alignment: .leading){
+                    Text(album.collectionName)
+                        .font(.footnote)
+                        .foregroundColor(Color(.label))
+                    Text(album.artistName)
+                        .padding(.bottom, 5)
+                        
+                    
+                    Text(album.primaryGenreName)
+                    Text("\(album.trackCount) songs")
+                    Text("Released: \(formattedDate(value: album.releaseDate))")
+                }
+                .font(.caption)
+                .foregroundColor(.gray)
+                .lineLimit(1)
+                
+                Spacer(minLength: 20)
+                
+                BuyButtonView(
+                    urlString: album.collectionViewURL,
+                    price: album.collectionPrice,
+                    currency: album.currency)
             }
-            .font(.caption)
-            .foregroundColor(.gray)
-            .lineLimit(1)
+            .padding()
             
-            Spacer(minLength: 20)
+            SongsForAlbumListView(songsForAlbumListViewModel: songsForAlbumListViewModel)
             
-            BuyButtonView(
-                urlString: album.collectionViewURL,
-                price: album.collectionPrice,
-                currency: album.currency)
+            
         }
     }
     
