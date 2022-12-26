@@ -13,12 +13,26 @@ struct BuyButtonView: View {
     let currency: String
     
     var body: some View {
-        if let url = URL(string: urlString), let price = price {
+        if let url = URL(string: urlString),
+           let priceText = formattedPrice() {
             Link(destination: url){
-                Text("\(Int(price)) \(currency)")
+                Text(priceText)
             }
             .buttonStyle(BuyButtonStyle())
         }
+    }
+    
+    private func formattedPrice() -> String? {
+        
+        guard let price = price else {
+            return nil
+        }
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.currencyCode = currency
+        let priceString = formatter.string(from: NSNumber(value: price))
+        return priceString ?? ""
     }
 }
 

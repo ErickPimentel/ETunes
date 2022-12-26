@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		830EBFF029595A4B00E21D8F /* AlbumDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830EBFEF29595A4B00E21D8F /* AlbumDetailView.swift */; };
 		833C46FE294EA39800A14145 /* ETunesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833C46FD294EA39800A14145 /* ETunesApp.swift */; };
 		833C4700294EA39800A14145 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833C46FF294EA39800A14145 /* ContentView.swift */; };
 		833C4702294EA39900A14145 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 833C4701294EA39900A14145 /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		830EBFEF29595A4B00E21D8F /* AlbumDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailView.swift; sourceTree = "<group>"; };
 		833C46FA294EA39800A14145 /* ETunes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ETunes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		833C46FD294EA39800A14145 /* ETunesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETunesApp.swift; sourceTree = "<group>"; };
 		833C46FF294EA39800A14145 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				833C4716294EB12400A14145 /* AlbumListView.swift */,
 				83B57D672958FE4D00EB6421 /* AlbumRowView.swift */,
 				83B57D7229590B1400EB6421 /* AlbumSectionView.swift */,
+				830EBFEF29595A4B00E21D8F /* AlbumDetailView.swift */,
 			);
 			path = album;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				833C470F294EA62400A14145 /* Album.swift in Sources */,
 				83702848294FD4E50027D21D /* APIService.swift in Sources */,
 				837B2FFC2958C6C10077925A /* SearchView.swift in Sources */,
+				830EBFF029595A4B00E21D8F /* AlbumDetailView.swift in Sources */,
 				833C4713294EAD3500A14145 /* Song.swift in Sources */,
 				83B57D6A2958FF0F00EB6421 /* ImageLoadingView.swift in Sources */,
 				833C4717294EB12400A14145 /* AlbumListView.swift in Sources */,
