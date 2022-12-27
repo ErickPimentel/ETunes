@@ -36,7 +36,7 @@ class SongsForAlbumListViewModel: ObservableObject {
                                 _ = songs.removeFirst()
                             }
                         
-                            self?.songs = songs
+                            self?.songs = songs.sorted(by: {$0.trackNumber < $1.trackNumber})
                             self?.state = .good
                             print("fetched \(results.resultCount) songs for albumID: \(albumID) ")
                         

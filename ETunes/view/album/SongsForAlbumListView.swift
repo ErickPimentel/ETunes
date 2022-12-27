@@ -10,58 +10,24 @@ import SwiftUI
 struct SongsForAlbumListView: View {
     
     @ObservedObject var songsForAlbumListViewModel: SongsForAlbumListViewModel
-    
     let selectedSong: Song?
     
     var body: some View {
-        ScrollView {
+        
+        ScrollViewReader{ proxy in
             
-            if songsForAlbumListViewModel.state == .isLoading{
-                ProgressView()
-                    .progressViewStyle(.circular)
-            } else {
-                Grid(horizontalSpacing: 20) {
-                        ForEach(songsForAlbumListViewModel.songs){ song in
-                            GridRow{
-                                Text("\(song.trackNumber)")
-                                    .font(.footnote)
-                                    .gridColumnAlignment(.trailing)
-                                
-                                Text(song.trackName)
-                                    .gridColumnAlignment(.leading)
-                                
-                                Spacer()
-                                
-                                Text(formattedDuration(time: song.trackTimeMillis))
-                                    .font(.footnote)
-                                
-                                BuySongButtonView(
-                                    urlString: song.previewURL,
-                                    price: song.trackPrice,
-                                    currency: song.currency)
-                            }
-                            .foregroundColor(song == selectedSong ? Color.accentColor : Color(.label))
-                            
-                            Divider()
-                            
-                        }
+            ScrollView {
+                if songsForAlbumListViewModel.state == .isLoading{
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                } else if songsForAlbumListViewModel.songs.count > 0 {
+                    SongGridView(songs: songsForAlbumListViewModel.songs, selectedSong: selectedSong).onAppear{
+                        print("scroll in list with \(songsForAlbumListViewModel.songs.count) songs")
+                        proxy.scrollTo(selectedSong?.trackNumber, anchor: .center)
                     }
-                    .padding([.vertical, .leading])
+                }
             }
         }
-    }
-    
-    func formattedDuration(time: Int) -> String {
-        
-        let timeInSeconds = time / 1000
-        
-        let interval = TimeInterval(timeInSeconds)
-        let formatter = DateComponentsFormatter()
-        formatter.zeroFormattingBehavior = .pad
-        formatter.allowedUnits = [.minute, .second]
-        formatter.unitsStyle = .positional
-        
-        return formatter.string(from: interval) ?? ""
     }
 }
 
