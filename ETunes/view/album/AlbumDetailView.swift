@@ -24,7 +24,7 @@ struct AlbumDetailView: View {
             
             AlbumHeaderDetailView(album: album)
             
-            SongsForAlbumListView(songsForAlbumListViewModel: songsForAlbumListViewModel)
+            SongsForAlbumListView(songsForAlbumListViewModel: songsForAlbumListViewModel, selectedSong: nil)
         }
         .onAppear {
             songsForAlbumListViewModel.fetch()

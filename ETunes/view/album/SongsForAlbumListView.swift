@@ -11,6 +11,7 @@ struct SongsForAlbumListView: View {
     
     @ObservedObject var songsForAlbumListViewModel: SongsForAlbumListViewModel
     
+    let selectedSong: Song?
     
     var body: some View {
         ScrollView {
@@ -39,6 +40,8 @@ struct SongsForAlbumListView: View {
                                     price: song.trackPrice,
                                     currency: song.currency)
                             }
+                            .foregroundColor(song == selectedSong ? Color.accentColor : Color(.label))
+                            
                             Divider()
                             
                         }
@@ -64,6 +67,6 @@ struct SongsForAlbumListView: View {
 
 struct SongsForAlbumListView_Previews: PreviewProvider {
     static var previews: some View {
-        SongsForAlbumListView(songsForAlbumListViewModel: SongsForAlbumListViewModel.example())
+        SongsForAlbumListView(songsForAlbumListViewModel: SongsForAlbumListViewModel.example(), selectedSong: nil)
     }
 }
