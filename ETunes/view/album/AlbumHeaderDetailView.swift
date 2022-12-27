@@ -40,10 +40,8 @@ struct AlbumHeaderDetailView: View {
                 currency: album.currency)
         }
         .padding()
-        .background(
-            Color(.systemBackground)
-                .edgesIgnoringSafeArea(.top)
-                .shadow(radius: 5)
+        .background(Color(.systemBackground).edgesIgnoringSafeArea(.top)
+.shadow(radius: 5)
         )
         
     }
