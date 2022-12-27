@@ -14,6 +14,12 @@ class APIService {
         fetch(type: AlbumResult.self, url: url, completion: completion)
     }
     
+    func fetchAlbum(for albumID: Int, completion: @escaping (Result<AlbumResult, APIError>) -> Void){
+        
+        let url = createURL(for: albumID, entityType: .album)
+        fetch(type: AlbumResult.self, url: url, completion: completion)
+    }
+    
     func fetchSongs(for albumID: Int, completion: @escaping (Result<SongResult, APIError>) -> Void){
         let url = createURL(for: albumID, entityType: .song)
         fetch(type: SongResult.self, url: url, completion: completion)

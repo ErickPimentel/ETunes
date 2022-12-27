@@ -11,8 +11,22 @@ struct SongDetailView: View {
     
     let song: Song
     
+    @StateObject var songsForAlbumListViewModel: SongsForAlbumListViewModel
+    @StateObject var albumForSongViewModel = AlbumForSongViewModel()
+    
+    init(song: Song){
+        print("init song detail \(song.id)")
+        self.song = song
+        self._songsForAlbumListViewModel = StateObject(wrappedValue: SongsForAlbumListViewModel(albumID: song.collectionID))
+    }
+    
     var body: some View {
-        Text(song.trackName)
+        VStack{
+            SongsForAlbumListView(songsForAlbumListViewModel: songsForAlbumListViewModel)
+        }.onAppear{
+            songsForAlbumListViewModel.fetch()
+            albumForSongViewModel.fetch(song: song)
+        }
     }
 }
 
