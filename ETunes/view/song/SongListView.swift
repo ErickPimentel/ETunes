@@ -13,7 +13,13 @@ struct SongListView: View {
     var body: some View {
         List{
             ForEach(songListViewModel.songs){ song in
-                SongRowView(song: song)
+                NavigationLink {
+                    SongDetailView(song: song)
+                } label: {
+                    SongRowView(song: song)
+                }
+                .buttonStyle(.plain)
+                
             }
             
             switch songListViewModel.state {

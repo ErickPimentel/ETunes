@@ -30,6 +30,7 @@
 		83702858294FDD600027D21D /* MovieListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83702857294FDD600027D21D /* MovieListView.swift */; };
 		837B2FFC2958C6C10077925A /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837B2FFB2958C6C10077925A /* SearchView.swift */; };
 		837B2FFE2958C7B10077925A /* EntityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837B2FFD2958C7B10077925A /* EntityType.swift */; };
+		839F2634295B64360035EFD6 /* SongDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839F2633295B64360035EFD6 /* SongDetailView.swift */; };
 		83B57D562958CFD000EB6421 /* SearchAllListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B57D552958CFD000EB6421 /* SearchAllListView.swift */; };
 		83B57D5C2958D20800EB6421 /* SongListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B57D5B2958D20800EB6421 /* SongListView.swift */; };
 		83B57D602958D7A400EB6421 /* SearchPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B57D5F2958D7A400EB6421 /* SearchPlaceholderView.swift */; };
@@ -69,6 +70,7 @@
 		83702857294FDD600027D21D /* MovieListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListView.swift; sourceTree = "<group>"; };
 		837B2FFB2958C6C10077925A /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		837B2FFD2958C7B10077925A /* EntityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityType.swift; sourceTree = "<group>"; };
+		839F2633295B64360035EFD6 /* SongDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongDetailView.swift; sourceTree = "<group>"; };
 		83B57D552958CFD000EB6421 /* SearchAllListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAllListView.swift; sourceTree = "<group>"; };
 		83B57D5B2958D20800EB6421 /* SongListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListView.swift; sourceTree = "<group>"; };
 		83B57D5F2958D7A400EB6421 /* SearchPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceholderView.swift; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				83B57D7029590AF100EB6421 /* SongSectionView.swift */,
 				83B57D5B2958D20800EB6421 /* SongListView.swift */,
 				83B57D612958FA5F00EB6421 /* SongRowView.swift */,
+				839F2633295B64360035EFD6 /* SongDetailView.swift */,
 			);
 			path = song;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 				837B2FFC2958C6C10077925A /* SearchView.swift in Sources */,
 				830EBFF029595A4B00E21D8F /* AlbumDetailView.swift in Sources */,
 				833C4713294EAD3500A14145 /* Song.swift in Sources */,
+				839F2634295B64360035EFD6 /* SongDetailView.swift in Sources */,
 				83B57D6A2958FF0F00EB6421 /* ImageLoadingView.swift in Sources */,
 				833C4717294EB12400A14145 /* AlbumListView.swift in Sources */,
 				83702846294FCC010027D21D /* APIError.swift in Sources */,
